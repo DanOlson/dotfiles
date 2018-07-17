@@ -1,0 +1,5 @@
+#!/bin/bash
+
+gbd () {
+ git branch | fzf -m | xargs git branch -d
+}
