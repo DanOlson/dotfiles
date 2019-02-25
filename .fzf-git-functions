@@ -1,5 +1,19 @@
 #!/bin/bash
 
-gbd () {
+function gbd {
  git branch | fzf -m | xargs git branch -d
+}
+
+function gco {
+  branch=$1
+  if [ -z $branch ]; then
+    branch=$(git branch | fzf | tr -d '[:space:]')
+  fi
+  git checkout "$branch" $2
+}
+
+function spr {
+  target=$(git branch | fzf | tr -d '[:space:]')
+  reviewers=$(cat ~/.bitbucket-users | fzf -m | xargs echo -n)
+  stash pull-request "$target" $reviewers
 }
